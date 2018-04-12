@@ -248,6 +248,22 @@
         mkdRefresh(event.data);
     }
 
+    function LoadMermaid() {
+        var mermaids = document.getElementsByClassName("lang-mermaid");
+        for (var i = 0; i < mermaids.length; i++) {
+            if (mermaids[i].childNodes[0].nodeName === "div") {
+                continue;
+            }
+            var txt = mermaids[i].textContent;
+            mermaids[i].innerHTML = ""
+            var di = document.createElement("div");
+            di.setAttribute("class", "mermaid");
+            di.innerHTML = txt;
+            mermaids[i].appendChild(di);
+        }
+        mermaid.init();
+    }
+
     function mkdRefresh(data) {
         marked(data, function(err, content) {
             var aPoint;
@@ -263,6 +279,7 @@
 
             window.MathJax && MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
         });
+        LoadMermaid();
     }
 
     function winClose() {
